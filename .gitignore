@@ -1,0 +1,7 @@
+codigo-fonte/node_modules/
+codigo-fonte/.next/
+codigo-fonte/out/
+codigo-fonte/artifact-dist/
+codigo-fonte/*.tsbuildinfo
+codigo-fonte/next-env.d.ts
+.DS_Store

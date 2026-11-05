@@ -1,0 +1,35 @@
+{
+  "name": "velocity",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/relativize.mjs",
+    "start": "npx serve out",
+    "assets:textures": "python3 scripts/recolor.py <diffuse> public/models/tex",
+    "assets:stills": "node scripts/render-stills.mjs scripts/shots.mjs <out>",
+    "assets:scenes": "python3 scripts/scenes.py <out>",
+    "build:preview": "node scripts/build-artifact.mjs"
+  },
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "framer-motion": "^14.9.1",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27",
+    "next": "^15.5.29",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0",
+    "zustand": "^5.0.16"
+  },
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.5.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "esbuild": "^0.25.12",
+    "typescript": "^5.9.3"
+  }
+}

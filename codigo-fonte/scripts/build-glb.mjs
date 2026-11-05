@@ -1,0 +1,20 @@
+// Rebuilds the source scan into a single-material GLB (variants are swapped at runtime).
+import { NodeIO } from '@gltf-transform/core';
+import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
+import { prune, dedup } from '@gltf-transform/functions';
+import fs from 'node:fs';
+const [src, texDir, out] = process.argv.slice(2);
+const io = new NodeIO().registerExtensions(ALL_EXTENSIONS);
+const doc = await io.read(src);
+const root = doc.getRoot();
+for (const ext of root.listExtensionsUsed()) if (ext.extensionName === 'KHR_materials_variants') ext.dispose();
+const mat = root.listMaterials()[0];
+for (const mesh of root.listMeshes()) for (const p of mesh.listPrimitives()) p.setMaterial(mat);
+const set = (tex, file) => tex.setImage(new Uint8Array(fs.readFileSync(file))).setMimeType('image/jpeg');
+set(mat.getBaseColorTexture(), `${texDir}/diffuse-ember.jpg`);
+set(mat.getNormalTexture(), `${texDir}/normal.jpg`);
+set(mat.getMetallicRoughnessTexture(), `${texDir}/orm.jpg`);
+mat.setName('velocity-x1');
+await doc.transform(prune(), dedup());
+await io.write(out, doc);
+console.log('ok', fs.statSync(out).size);

@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+*.tsbuildinfo
+next-env.d.ts
+scripts/studio/velocity-x1.glb
+artifact-dist
